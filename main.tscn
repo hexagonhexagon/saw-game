@@ -1,6 +1,14 @@
-[gd_scene format=3 uid="uid://fnk7pamkko1x"]
+[gd_scene load_steps=4 format=3 uid="uid://fnk7pamkko1x"]
 
-[node name="Node2D" type="Control"]
+[ext_resource type="Script" uid="uid://bur8dgbwh74kp" path="res://player.gd" id="1_ig7tw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ig7tw"]
+radius = 9.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
+size = Vector2(40, 40)
+
+[node name="Root" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,7 +33,17 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="ColorRect" type="ColorRect" parent="UiRoot"]
+[node name="Arena" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Arena"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -39,3 +57,29 @@ offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.25323758, 0.25323758, 0.25323755, 1)
+
+[node name="Player" type="CharacterBody2D" parent="Arena"]
+position = Vector2(-24, 31)
+script = ExtResource("1_ig7tw")
+speed = 150.0
+metadata/_edit_group_ = true
+
+[node name="Polygon2D" type="Polygon2D" parent="Arena/Player"]
+polygon = PackedVector2Array(-10, -10, -7, 10, 7, 10, 10, -10)
+uv = PackedVector2Array(-6.666626, -72.666664, 69.333374, -76.666664, 45.333374, -2, -8, -72.666664)
+polygons = [PackedInt32Array(0, 1, 2, 3)]
+internal_vertex_count = 3
+
+[node name="PlayerCollision" type="CollisionShape2D" parent="Arena/Player"]
+shape = SubResource("CircleShape2D_ig7tw")
+
+[node name="Wall" type="StaticBody2D" parent="Arena"]
+
+[node name="ColorRect" type="ColorRect" parent="Arena/Wall"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.68859524, 0.6885953, 0.6885953, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Wall"]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_0xm2m")
