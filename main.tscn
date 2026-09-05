@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://fnk7pamkko1x"]
+[gd_scene load_steps=6 format=3 uid="uid://fnk7pamkko1x"]
 
 [ext_resource type="Script" uid="uid://bur8dgbwh74kp" path="res://player.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://3s1bfsr8v8wn" path="res://player_dash_shadow.tscn" id="2_0xm2m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ig7tw"]
 radius = 9.0
@@ -73,16 +74,17 @@ color = Color(0.25323758, 0.25323758, 0.25323755, 1)
 [node name="Player" type="CharacterBody2D" parent="Arena" node_paths=PackedStringArray("debug_text_label")]
 scale = Vector2(1.3, 1.3)
 script = ExtResource("1_ig7tw")
-speed = 150.0
-dash_speed = 300.0
+speed = 200.0
+dash_speed = 400.0
 dash_duration = 0.2
 dash_cooldown = 0.2
+dash_shadow = ExtResource("2_0xm2m")
+num_dash_shadows = 4
 debug_text_label = NodePath("../../UiRoot/DebugLabel")
 metadata/_edit_group_ = true
 
-[node name="Polygon2D" type="Polygon2D" parent="Arena/Player"]
-rotation = -1.5707964
-polygon = PackedVector2Array(-10, -10, -7, 10, 7, 10, 10, -10)
+[node name="PlayerShape" type="Polygon2D" parent="Arena/Player"]
+polygon = PackedVector2Array(-10, -10, 10, -7, 10, 7, -10, 10)
 uv = PackedVector2Array(-6.666626, -72.666664, 69.333374, -76.666664, 45.333374, -2, -8, -72.666664)
 polygons = [PackedInt32Array(0, 1, 2, 3)]
 internal_vertex_count = 3
