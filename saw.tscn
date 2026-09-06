@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddfjpols4cspv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0xm2m"]
+radius = 13.0
+
+[node name="Saw" type="RigidBody2D"]
+linear_velocity = Vector2(100, 0)
+angular_velocity = 12.566371
+
+[node name="SawTexture" type="Polygon2D" parent="."]
+scale = Vector2(1.3, 1.3)
+polygon = PackedVector2Array(-10, -10, -10, 10, 10, 10, 10, -10)
+uv = PackedVector2Array(-88, -72, -88, 64, 56, 64, 56, -72)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0xm2m")

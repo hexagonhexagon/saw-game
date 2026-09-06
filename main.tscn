@@ -1,10 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://fnk7pamkko1x"]
+[gd_scene load_steps=9 format=3 uid="uid://fnk7pamkko1x"]
 
 [ext_resource type="Script" uid="uid://bur8dgbwh74kp" path="res://player.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://3s1bfsr8v8wn" path="res://player_dash_shadow.tscn" id="2_0xm2m"]
+[ext_resource type="PhysicsMaterial" uid="uid://bua4xukqtpskw" path="res://bouncy_wall_material.tres" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://ddfjpols4cspv" path="res://saw.tscn" id="4_1bvp3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ig7tw"]
 radius = 9.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_0xm2m"]
+size = Vector2(30, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
 size = Vector2(40, 400)
@@ -92,13 +97,23 @@ internal_vertex_count = 3
 [node name="PlayerCollision" type="CollisionShape2D" parent="Arena/Player"]
 shape = SubResource("CircleShape2D_ig7tw")
 
+[node name="SawLauncher" type="Sprite2D" parent="Arena/Player"]
+position = Vector2(22.307709, 0)
+texture = SubResource("PlaceholderTexture2D_0xm2m")
+
+[node name="SawTexture" type="Polygon2D" parent="Arena/Player/SawLauncher"]
+polygon = PackedVector2Array(-10, -10, -10, 10, 10, 10, 10, -10)
+uv = PackedVector2Array(-88, -72, -88, 64, 56, 64, 56, -72)
+
 [node name="InvisibleWallLeft" type="StaticBody2D" parent="Arena"]
+physics_material_override = ExtResource("3_h2yge")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/InvisibleWallLeft"]
 position = Vector2(-220, 0)
 shape = SubResource("RectangleShape2D_0xm2m")
 
 [node name="InvisibleWallTop" type="StaticBody2D" parent="Arena"]
+physics_material_override = ExtResource("3_h2yge")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/InvisibleWallTop"]
 position = Vector2(0, -220)
@@ -106,6 +121,7 @@ shape = SubResource("RectangleShape2D_ig7tw")
 
 [node name="InvisibleWallBottom" type="StaticBody2D" parent="Arena"]
 position = Vector2(0, 440)
+physics_material_override = ExtResource("3_h2yge")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/InvisibleWallBottom"]
 position = Vector2(0, -220)
@@ -113,7 +129,11 @@ shape = SubResource("RectangleShape2D_ig7tw")
 
 [node name="InvisibleWallRight" type="StaticBody2D" parent="Arena"]
 position = Vector2(440, 0)
+physics_material_override = ExtResource("3_h2yge")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/InvisibleWallRight"]
 position = Vector2(-220, 0)
 shape = SubResource("RectangleShape2D_0xm2m")
+
+[node name="Saw" parent="Arena" instance=ExtResource("4_1bvp3")]
+position = Vector2(38, 75)
