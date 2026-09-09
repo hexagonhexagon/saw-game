@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://barwow4xgrgoc"]
+
+[ext_resource type="Texture2D" uid="uid://bddqrfc17xvb5" path="res://saw.svg" id="1_7c5v0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0xm2m"]
+radius = 25.0
+
+[node name="Saw" type="RigidBody2D"]
+linear_velocity = Vector2(100, 0)
+angular_velocity = 12.566371
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_7c5v0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0xm2m")
