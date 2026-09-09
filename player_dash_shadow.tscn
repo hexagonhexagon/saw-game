@@ -3,7 +3,9 @@
 [ext_resource type="Script" uid="uid://dsqtfdk1fxhq1" path="res://player_dash_shadow.gd" id="1_s0vap"]
 
 [node name="PlayerDashShadow" type="Polygon2D"]
-scale = Vector2(1.3, 1.3)
+z_index = -10
+z_as_relative = false
+scale = Vector2(2, 2)
 polygon = PackedVector2Array(-10, -10, 10, -7, 10, 7, -10, 10)
 uv = PackedVector2Array(-6.666626, -72.666664, 69.333374, -76.666664, 45.333374, -2, -8, -72.666664)
 polygons = [PackedInt32Array(0, 1, 2, 3)]

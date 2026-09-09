@@ -1,16 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://fnk7pamkko1x"]
+[gd_scene load_steps=9 format=3 uid="uid://fnk7pamkko1x"]
 
 [ext_resource type="Script" uid="uid://bur8dgbwh74kp" path="res://player.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://3s1bfsr8v8wn" path="res://player_dash_shadow.tscn" id="2_0xm2m"]
+[ext_resource type="PhysicsMaterial" uid="uid://bua4xukqtpskw" path="res://bouncy_wall_material.tres" id="3_h2yge"]
+[ext_resource type="Texture2D" uid="uid://bcnxtkubvie24" path="res://saw_launcher.svg" id="3_lquwl"]
+[ext_resource type="Texture2D" uid="uid://bddqrfc17xvb5" path="res://saw.svg" id="4_lquwl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ig7tw"]
-radius = 9.0
+radius = 11.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
-size = Vector2(40, 400)
+size = Vector2(40, 600)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ig7tw"]
-size = Vector2(480, 40)
+size = Vector2(680, 40)
 
 [node name="Root" type="Control"]
 layout_mode = 3
@@ -29,6 +32,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Background" type="ColorRect" parent="UiRoot"]
+z_index = -100
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -57,26 +61,26 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="Arena"]
+z_index = -50
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -200.0
-offset_right = 200.0
-offset_bottom = 200.0
+offset_left = -300.0
+offset_top = -300.0
+offset_right = 300.0
+offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.25323758, 0.25323758, 0.25323755, 1)
 
 [node name="Player" type="CharacterBody2D" parent="Arena" node_paths=PackedStringArray("debug_text_label")]
-scale = Vector2(1.3, 1.3)
 script = ExtResource("1_ig7tw")
 speed = 200.0
-dash_speed = 400.0
-dash_duration = 0.2
+dash_speed = 500.0
+dash_duration = 0.3
 dash_cooldown = 0.2
 dash_shadow = ExtResource("2_0xm2m")
 num_dash_shadows = 4
@@ -84,36 +88,49 @@ debug_text_label = NodePath("../../UiRoot/DebugLabel")
 metadata/_edit_group_ = true
 
 [node name="PlayerShape" type="Polygon2D" parent="Arena/Player"]
+unique_name_in_owner = true
+scale = Vector2(2, 2)
 polygon = PackedVector2Array(-10, -10, 10, -7, 10, 7, -10, 10)
 uv = PackedVector2Array(-6.666626, -72.666664, 69.333374, -76.666664, 45.333374, -2, -8, -72.666664)
 polygons = [PackedInt32Array(0, 1, 2, 3)]
 internal_vertex_count = 3
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="Arena/Player"]
+scale = Vector2(1.5, 1.5)
 shape = SubResource("CircleShape2D_ig7tw")
 
+[node name="SawLauncher" type="Sprite2D" parent="Arena/Player"]
+unique_name_in_owner = true
+position = Vector2(60.53842, 0)
+texture = ExtResource("3_lquwl")
+
+[node name="SawTexture" type="Sprite2D" parent="Arena/Player/SawLauncher"]
+texture = ExtResource("4_lquwl")
+
 [node name="InvisibleWallLeft" type="StaticBody2D" parent="Arena"]
+position = Vector2(-320, 0)
+physics_material_override = ExtResource("3_h2yge")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/InvisibleWallLeft"]
-position = Vector2(-220, 0)
 shape = SubResource("RectangleShape2D_0xm2m")
 
 [node name="InvisibleWallTop" type="StaticBody2D" parent="Arena"]
+position = Vector2(0, 320)
+physics_material_override = ExtResource("3_h2yge")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/InvisibleWallTop"]
-position = Vector2(0, -220)
 shape = SubResource("RectangleShape2D_ig7tw")
 
 [node name="InvisibleWallBottom" type="StaticBody2D" parent="Arena"]
-position = Vector2(0, 440)
+position = Vector2(0, -320)
+physics_material_override = ExtResource("3_h2yge")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/InvisibleWallBottom"]
-position = Vector2(0, -220)
 shape = SubResource("RectangleShape2D_ig7tw")
 
 [node name="InvisibleWallRight" type="StaticBody2D" parent="Arena"]
-position = Vector2(440, 0)
+position = Vector2(320, 0)
+physics_material_override = ExtResource("3_h2yge")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/InvisibleWallRight"]
-position = Vector2(-220, 0)
 shape = SubResource("RectangleShape2D_0xm2m")

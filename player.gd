@@ -4,8 +4,10 @@ extends CharacterBody2D
 @export var dash_speed: float
 @export var dash_duration: float
 @export var dash_cooldown: float
+
 @export var dash_shadow: PackedScene
 @export var num_dash_shadows: int
+
 @export var debug_text_label: RichTextLabel
 
 var move_input_direction: Vector2 = Vector2.ZERO
@@ -15,6 +17,8 @@ var dash_duration_left: float
 var dash_shadow_cooldown: float
 var dash_shadow_cooldown_left: float
 var dash_cooldown_left: float
+
+@onready var PlayerShape := %PlayerShape
 
 
 func _ready() -> void:
@@ -33,6 +37,7 @@ func _physics_process(delta: float) -> void:
 		if dash_shadow_cooldown_left < 0.0:
 			var new_dash_shadow: Node = dash_shadow.instantiate()
 			new_dash_shadow.transform = transform
+			new_dash_shadow.scale = PlayerShape.scale
 			dash_shadow_cooldown_left = dash_shadow_cooldown
 			get_parent().add_child(new_dash_shadow)
 	else:
